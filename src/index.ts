@@ -1,8 +1,7 @@
 import * as assert from 'assert'
 import type { AxiosInstance } from 'axios'
+import * as querystring from 'query-string'
 import { API_CONNECTOR } from './utils'
-
-// api.simple.token_price()
 
 class CoinGeckoAPI {
   private axios: AxiosInstance
@@ -10,11 +9,6 @@ class CoinGeckoAPI {
   constructor() {
     this.axios = API_CONNECTOR
   }
-
-  public async vs_currencies(param) {
-    this.vs_currencies = params
-    return this
-  } 
 
   public async ping() {
     const method = 'ping'
@@ -26,9 +20,9 @@ class CoinGeckoAPI {
     return await this.get(method)
   }
 
-  public async simple({ }) {
+  public async simple(params?: object) {
     const method = 'simple'
-    const params = 'price'
+
     return await this.get(method, params)
   }
 
@@ -37,13 +31,23 @@ class CoinGeckoAPI {
     return `/${endpoint}`
   }
 
-  // private async get(...args: any[]) {
-  // const endpoint = args.join('/')
-  // const { data } = await this.axios.get(`/${endpoint}`)
-  // return data
-  // }
+  private async get(method: string, params?: object) {
+    const endpoint = this.build_request_path(method, params)
+    const { data } = await this.axios.get(`/${endpoint}`)
+    return data
+  }
 
   private async get_query_string(endpoint: string, ...querystring: any[]) {
     const query = querystring.join('&')
+  }
+
+  private async build_request_path(path: string, params?: object) {
+    let queryParams: string = ''
+    if (typeof params === 'object' && !params) {
+      queryParams = querystring.stringify(params)
+    }
+
+    path = queryParams ? `/${path}?${params}` : `/${path}`
+    return path
   }
 }
