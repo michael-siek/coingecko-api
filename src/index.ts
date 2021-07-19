@@ -22,23 +22,13 @@ class CoinGeckoAPI {
 
   public async simple(params?: object) {
     const method = 'simple'
-
     return await this.get(method, params)
-  }
-
-  private endpoint(...args: any[]) {
-    const endpoint = args.join('/')
-    return `/${endpoint}`
   }
 
   private async get(method: string, params?: object) {
     const endpoint = this.build_request_path(method, params)
     const { data } = await this.axios.get(`/${endpoint}`)
     return data
-  }
-
-  private async get_query_string(endpoint: string, ...querystring: any[]) {
-    const query = querystring.join('&')
   }
 
   private async build_request_path(path: string, params?: object) {
