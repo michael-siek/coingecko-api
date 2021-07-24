@@ -3,7 +3,7 @@ import type { AxiosInstance } from 'axios'
 import * as querystring from 'query-string'
 import { API_CONNECTOR } from './utils'
 
-class CoinGeckoAPI {
+export class CoinGeckoAPI {
   private axios: AxiosInstance
 
   constructor() {
@@ -27,7 +27,7 @@ class CoinGeckoAPI {
 
   private async get(method: string, params?: object) {
     const endpoint = this.build_request_path(method, params)
-    const { data } = await this.axios.get(`/${endpoint}`)
+    const data = await this.axios.get(await endpoint)
     return data
   }
 
@@ -36,7 +36,6 @@ class CoinGeckoAPI {
     if (typeof params === 'object' && !params) {
       queryParams = querystring.stringify(params)
     }
-
     path = queryParams ? `/${path}?${params}` : `/${path}`
     return path
   }
