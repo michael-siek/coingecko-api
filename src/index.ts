@@ -20,23 +20,39 @@ export class CoinGeckoAPI {
     return await this.get(method)
   }
 
-  public async simple(params?: object) {
-    const method = 'simple'
+  /**
+   * @param params - Object to pass through
+   * @param params.ids - (required) can be singular {ids: 'bitcoin'}
+   *                    or {ids: ['Bitcoin','Ethereum']}
+   * @param params.include_market_cap - (optional) boolean
+   * @param params.include_24hr_vol - (optional) boolean
+   * @param params.include_24hr_change - (optional) boolean
+   * @param params.include_last_updated_at - (optional) boolean
+   */
+  public async simple(params: object) {
+    const method = 'simple/price'
     return await this.get(method, params)
   }
 
   private async get(method: string, params?: object) {
-    const endpoint = this.build_request_path(method, params)
-    const data = await this.axios.get(await endpoint)
+    const endpoint = await this.build_request_path(method, params)
+    const data = await this.axios.get(endpoint)
     return data
   }
 
   private async build_request_path(path: string, params?: object) {
     let queryParams: string = ''
-    if (typeof params === 'object' && !params) {
-      queryParams = querystring.stringify(params)
+
+    const options = { maxKeys: 0 }
+    if (typeof params === 'object') {
+      queryParams = querystring.stringify(options, params)
     }
-    path = queryParams ? `/${path}?${params}` : `/${path}`
+    console.log('QueryParams ->' + queryParams)
+
+    path = queryParams ? `/${path}?${queryParams}` : `/${path}`
+
+    console.log('Path ->' + path)
+
     return path
   }
 }
