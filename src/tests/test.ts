@@ -25,7 +25,7 @@ describe('CoinGeckoAPI', () => {
       assert.isUndefined(data.ethereum)
     })
 
-    it.only('Returns the price of BTC/ETH when passed as an array', async () => {
+    it('Returns the price of BTC/ETH when passed as an array', async () => {
       const { data, request } = await coinGeckoApi.simple({
         ids: ['Bitcoin', 'Ethereum'],
         vs_currencies: 'usd'
