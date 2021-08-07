@@ -1,11 +1,11 @@
 {
-  "name": "slackbot-api",
+  "name": "coingecko-api",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MPL-2.0",
   "scripts": {
     "prebuild": "rimraf dist",
-    "fmt": "prettier --write '**/*.{.json,.ts}'",
+    "fmt": "prettier --write '**/*.{json,ts}'",
     "test": "jest"
   },
   "jest": {

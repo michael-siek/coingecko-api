@@ -2,6 +2,7 @@ import * as assert from 'assert'
 import type { AxiosInstance } from 'axios'
 import * as querystring from 'query-string'
 import { API_CONNECTOR } from './utils'
+import type { SimplePriceParams } from './types'
 
 export class CoinGeckoAPI {
   private axios: AxiosInstance
@@ -21,32 +22,31 @@ export class CoinGeckoAPI {
   }
 
   /**
-   * @param params - Object to pass through
-   * @param params.ids - (required) can be singular {ids: 'bitcoin'}
-   *                    or {ids: ['Bitcoin','Ethereum']}
-   * @param params.include_market_cap - (optional) boolean
-   * @param params.include_24hr_vol - (optional) boolean
-   * @param params.include_24hr_change - (optional) boolean
-   * @param params.include_last_updated_at - (optional) boolean
+   *
+   * @param {SimplePriceParams} params - Object to pass through
    */
-  public async simple(params: object) {
+
+  public async simple(params: SimplePriceParams) {
     const method = 'simple/price'
     return await this.get(method, params)
   }
 
-  private async get(method: string, params?: object) {
+  private async get(method: string, params?: SimplePriceParams) {
     const endpoint = await this.build_request_path(method, params)
     const data = await this.axios.get(endpoint)
     return data
   }
 
-  private async build_request_path(path: string, params?: object) {
-    let queryParams: string = ''
-
-    const options = { maxKeys: 0 }
-    if (typeof params === 'object') {
-      queryParams = querystring.stringify(options, params)
+  private async build_request_path(path: string, params?: SimplePriceParams) {
+    let queryParams = ''
+    if (Array.isArray(params?.ids) && params?.ids) {
+      params.ids = params.ids.join(',')
     }
+
+    if (typeof params === 'object') {
+      queryParams = querystring.stringify(params)
+    }
+
     console.log('QueryParams ->' + queryParams)
 
     path = queryParams ? `/${path}?${queryParams}` : `/${path}`
