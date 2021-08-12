@@ -5,9 +5,19 @@ import { API_CONNECTOR } from './utils'
 import type {
   CoinListParams,
   CoinMarketParams,
-  coinsParams,
+  CoinsParams,
+  CoinsTickersParams,
   SimplePriceParams,
-  SimpleTokenPriceParams
+  CoinsHistoryParams,
+  SimpleTokenPriceParams,
+  CoinsMarketChartParams,
+  MarketChartRangeBaseParams,
+  PageBaseParams,
+  CoinOhlcParams,
+  MarketChartBaseParams,
+  CategoriesOrderParams,
+  ExchangesTickersParams,
+  FinanceProductParams
 } from './types'
 
 export class CoinGeckoAPI {
@@ -35,14 +45,18 @@ export class CoinGeckoAPI {
   }
 
   /**
-   *
+   * @param id - (required) The ID of the platform to fetch
    * @param {SimpleTokenPriceParams} params - Object to pass through
    */
-  public async simpleTokenPrice(params: SimpleTokenPriceParams) {
-    // TODO: This is very BAD we will need to change it
-    // It is working but passing id pass through the path builder:
-    //  path ->/simple/token_price/binance-smart-chain?contract_addresses=0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82&id=binance-smart-chain&vs_currencies=usd
-    const method = 'simple/token_price/' + params.id
+  public async simpleTokenPrice(id: string, params: SimpleTokenPriceParams) {
+    if (id === undefined || id === '') {
+      assert(
+        id,
+        'The id of the platform issuing tokens is requred example: "binance-smart-chain"'
+      )
+    }
+
+    const method = 'simple/token_price/' + id
     return await this.get(method, params)
   }
 
@@ -72,13 +86,309 @@ export class CoinGeckoAPI {
   }
 
   /**
-   *
-   * @param {coinsParams} params - Object to pass through
+   * @param id (required) Pass the coin id e.g. bitcoin.
+
+   * @param {CoinsParams} params - Object to pass through
    */
-  public async coins(params?: coinsParams) {
-    const method = '/coins/' + params?.id
+  public async coins(id: string, params?: CoinsParams) {
+    if (id === undefined || id === '') {
+      assert(id, 'The ID of the coin is required e.g. Bitcoin.')
+    }
+
+    const method = 'coins/' + id
     return await this.get(method, params)
   }
+
+  /**
+   * @param id (required) Pass the coin id e.g. bitcoin.
+
+   * @param {CoinsTickersParams} params - Object to pass through
+   */
+  public async coinTickers(id: string, params?: CoinsTickersParams) {
+    if (id === undefined || id === '') {
+      assert(id, 'The ID of the coin is required e.g. Bitcoin.')
+    }
+
+    const method = 'coins/' + id + '/tickers'
+    return await this.get(method, params)
+  }
+
+  /**
+   * @param id (required) Pass the coin id e.g. bitcoin.
+   * @param date (required) Pass data of data snapshot dd-mm-yyyy e.g. 30-12-2017
+   * @param {CoinsHistoryParams} params - Object to pass through
+   */
+  public async coinHistory(
+    id: string,
+    date: string,
+    params?: CoinsHistoryParams
+  ) {
+    // TODO: Some validation on date format if not conformed to '-'
+    if (date === undefined || date === '') {
+      assert(
+        date,
+        'Date must conform to this standard: dd-mm-yyyy e.g. 30-12-2017'
+      )
+    }
+    if (id === undefined || id === '') {
+      assert(id, 'The ID of the coin is required e.g. Bitcoin.')
+    }
+
+    const method = 'coins/' + id + '/history?date=' + date
+    return await this.get(method, params)
+  }
+
+  /**
+   * @param id (required) Pass the coin id e.g. bitcoin.
+   * @param {CoinsMarketChartParams} params - Object to pass through
+   */
+  public async coinMarketChart(id: string, params: CoinsMarketChartParams) {
+    if (id === undefined || id === '') {
+      assert(id, 'The ID of the coin is required e.g. Bitcoin.')
+    }
+
+    const method = 'coins/' + id + '/market_chart'
+    return await this.get(method, params)
+  }
+
+  /**
+   * @param id (required) Pass the coin id e.g. bitcoin.
+   * @param {MarketChartRangeBaseParams} params - Object to pass through
+   */
+  public async coinMarketChartRange(
+    id: string,
+    params: MarketChartRangeBaseParams
+  ) {
+    if (id === undefined || id === '') {
+      assert(id, 'The ID of the coin is required e.g. Bitcoin.')
+    }
+    const method = 'coins/' + id + '/market_chart/range'
+    return await this.get(method, params)
+  }
+
+  /**
+   * @param id (required) Pass the coin id e.g. bitcoin.
+   * @param {PageBaseParams} params - Object to pass through
+   */
+  public async coinStatusUpdates(id: string, params?: PageBaseParams) {
+    if (id === undefined || id === '') {
+      assert(id, 'The ID of the coin is required e.g. Bitcoin.')
+    }
+
+    const method = 'coins/' + id + '/status_updates'
+    return await this.get(method, params)
+  }
+
+  /**
+   * @param id (required) Pass the coin id e.g. bitcoin.
+   * @param {CoinOhlcParams} params - Object to pass through
+   */
+  public async coinOHLC(id: string, params: CoinOhlcParams) {
+    if (id === undefined || id === '') {
+      assert(id, 'The ID of the coin is required e.g. Bitcoin.')
+    }
+
+    const method = 'coins/' + id + '/ohlc'
+    return await this.get(method, params)
+  }
+
+  // Contract Endpoints
+
+  /**
+   * @param id (required) Asset Platform e.g. binance-smart-chain
+   * @param contract_address - Token's Contract Address
+   */
+  public async contractInformation(id: string, contract_address: string) {
+    if (id === undefined || id === '') {
+      assert(id, 'The ID of said asset platform e.g. binance-smart-chain')
+    }
+
+    const method = 'coins/' + id + '/contract/' + contract_address
+    return await this.get(method)
+  }
+
+  /**
+   * @param id (required) Asset Platform e.g. binance-smart-chain
+   * @param contract_address - Token's Contract Address
+   * @param {MarketChartBaseParams} - Object to pass through
+   */
+  public async contractMarketChart(
+    id: string,
+    contract_address: string,
+    params: MarketChartBaseParams
+  ) {
+    if (id === undefined || id === '') {
+      assert(id, 'The ID of said asset platform e.g. binance-smart-chain.')
+    }
+    if (contract_address === undefined || contract_address === '') {
+      assert(contract_address, 'Token contract address required.')
+    }
+
+    const method =
+      'coins/' + id + '/contract/' + contract_address + '/market_chart'
+
+    return await this.get(method, params)
+  }
+
+  /**
+   * @param id (required) Asset Platform e.g. binance-smart-chain
+   * @param contract_address - Token's Contract Address
+   * @param {MarketChartRangeBaseParams} - Object to pass through
+   */
+  public async contractMarketChartRange(
+    id: string,
+    contract_address: string,
+    params: MarketChartRangeBaseParams
+  ) {
+    if (id === undefined || id === '') {
+      assert(id, 'The ID of said asset platform e.g. binance-smart-chain.')
+    }
+    if (contract_address === undefined || contract_address === '') {
+      assert(contract_address, 'Token contract address required.')
+    }
+
+    const method =
+      'coins/' + id + '/contract/' + contract_address + '/market_chart/range'
+
+    return await this.get(method, params)
+  }
+
+  // Asset Platforms Endpoint
+
+  public async assetPlatforms() {
+    const method = 'asset_platforms'
+    return await this.get(method)
+  }
+
+  // Categories Endpoints
+
+  public async categoriesList() {
+    const method = 'coins/categories/list'
+    return await this.get(method)
+  }
+
+  /**
+   * @param {CategoriesOrderParams} - Object to pass through
+   */
+  public async categoriesListMarketData(params?: CategoriesOrderParams) {
+    const method = 'coins/categories'
+    return await this.get(method, params)
+  }
+
+  // Exchanges Endpoints
+
+  /**
+   * @param {PageBaseParams} - Object to pass through
+   */
+  public async exchanges(params?: PageBaseParams) {
+    const method = 'exchanges'
+    return await this.get(method, params)
+  }
+
+  public async exchangesList() {
+    const method = 'exchanges/list'
+    return await this.get(method)
+  }
+
+  /**
+   * @param id (required) ID of the exchange e.g. binance
+   */
+  public async exchangesById(id: string) {
+    if (id === undefined || id === '') {
+      assert(id, 'Pass the exchange ID e.g. binance')
+    }
+    const method = 'exchanges/' + id
+    return await this.get(method)
+  }
+
+  /**
+   * @param id (required) ID of the exchange e.g. binance
+   * @param {ExchangesTickersParams} - Object to pass through
+   */
+  public async exchangeTickers(id: string, params?: ExchangesTickersParams) {
+    if (id === undefined || id === '') {
+      assert(id, 'Pass the exchange ID e.g. binance')
+    }
+
+    const method = 'exchanges/' + id + '/tickers'
+    return await this.get(method, params)
+  }
+
+  /**
+   * @param id (required) ID of the exchange e.g. binance
+   * @param {PageBaseParams} - Object to pass through
+   */
+  public async exchangesStatusUpdates(id: string, params?: PageBaseParams) {
+    if (id === undefined || id === '') {
+      assert(id, 'Pass the exchange ID e.g. binance')
+    }
+    const method = 'exchanges/' + id + '/status_updates'
+    return await this.get(method, params)
+  }
+
+  /**
+   * @param id (required) ID of the exchange e.g. binance
+   * @param days (required) Data up to number of days ago (eg. 1,14,30)
+   */
+  public async exchangesVolumeChart(id: string, days: number) {
+    if (id === undefined || id === '') {
+      assert(id, 'Pass the exchange ID e.g. binance')
+    }
+    const method = 'exchanges/' + id + '/volume_chart?days=' + days
+    return await this.get(method)
+  }
+
+  // Finance Endpoints
+
+  /**
+   * @param {PageBaseParams} params - Object to pass in
+   */
+  public async financePlatforms(params?: PageBaseParams) {
+    const method = 'finance_platforms'
+    return await this.get(method, params)
+  }
+
+  /**
+   * @param {FinanceProductParams} params - Object to pass in
+   */
+  public async financeProducts(params?: FinanceProductParams) {
+    const method = 'finance_products'
+    return await this.get(method, params)
+  }
+
+  // Indexes Endpoints
+
+  /**
+   * @param {PageBaseParams} params - Object to pass in
+   */
+  public async indexes(params?: PageBaseParams) {
+    const method = 'indexes'
+    return await this.get(method, params)
+  }
+
+  /**
+   * @param market_id - Pass the market id (can be obtained from ./exchanges/list)
+   * @param id - Pass the index id (can be obtained from ./indexes/list)
+   */
+  public async indexesByMarketIndexId(market_id: string, id: string) {
+    if (id === undefined || id === '') {
+      assert(id, 'Pass the index id (can be obtained from /indexes/list)')
+    }
+    if (market_id === undefined || market_id === '') {
+      assert(
+        market_id,
+        'Pass the market id (can be obtained from ./exchanges/list)'
+      )
+    }
+    const method = 'indexes/' + market_id + '/' + id
+    return await this.get(method)
+  }
+
+  public async indexesList() {
+    const method = 'indexes/list'
+    return await this.get(method)
+  }
+  // Get and path builder functions
 
   private async get(method: string, params?: any) {
     const endpoint = await this.build_request_path(method, params)
@@ -106,7 +416,7 @@ export class CoinGeckoAPI {
 
     path = queryParams ? `/${path}?${queryParams}` : `/${path}`
 
-    console.log('path ->' + path)
+    // console.log('path ->' + path)
 
     return path
   }
