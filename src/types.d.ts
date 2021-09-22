@@ -1,4 +1,4 @@
-// Simple Price Base Interface ->
+// Simple Price Base Interface
 interface SimplePriceBaseParams {
   vs_currencies: 'usd'
   include_market_cap?: boolean
