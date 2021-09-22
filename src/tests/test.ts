@@ -1,8 +1,9 @@
 import { assert } from 'chai'
-import { CoinGeckoAPI } from '../index'
+import { CoinGeckoAPI } from '..'
 
 describe('CoinGeckoAPI', () => {
   const coinGeckoApi = new CoinGeckoAPI()
+
   describe('.ping', () => {
     it('Should ping server and return a 200', async () => {
       const result = await coinGeckoApi.ping()
