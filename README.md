@@ -75,3 +75,168 @@ const { data } = await coinGeckoApi.simpleTokenPrice({
 ```js
 const { data } = await coinGeckoApi.supportedCurrencies()
 ```
+
+### `​/coins​/list`
+
+```js
+const { data } = await coinGeckoApi.coinList()
+```
+
+### `​/coins​/markets`
+
+```js
+const { data } = await coinGeckoApi.coinMarkets({ vs_currency: 'usd' })
+```
+
+### `​/coins​/{id}`
+
+```js
+const { data } = await coinGeckoApi.coinMarkets({ id: 'bitcoin' })
+```
+
+### `​/coins​/{id}​/tickers`
+
+```js
+const { data } = await coinGeckoApi.coinTickers('bitcoin', {
+  exchange_ids: 'binance'
+})
+
+const { data, request } = await coinGeckoApi.coinTickers('bitcoin', {
+  exchange_ids: 'binance'
+})
+```
+
+### `​/coins​/{id}​/history`
+
+```js
+const { data } = await coinGeckoApi.coinHistory('bitcoin', '30-12-2017', {
+  localization: false
+})
+const { data } = await coinGeckoApi.coinHistory('bitcoin', '30-12-2017')
+```
+
+### `​/coins​/{id}​/market_chart`
+
+```js
+const { data } = await coinGeckoApi.coinMarketChart('bitcoin', {
+  vs_currency: 'usd',
+  days: '1'
+})
+```
+
+### `​/coins​/{id}​/market_chart​/range`
+
+```js
+const { data } = await coinGeckoApi.coinMarketChartRange('bitcoin', {
+  vs_currency: 'usd',
+  from: '1392577232',
+  to: '1422577232'
+})
+```
+
+### `​/coins​/{id}​/status_updates`
+
+```js
+const { data } = await coinGeckoApi.coinStatusUpdates('bitcoin')
+```
+
+### `​/coins​/{id}​/ohlc`
+
+```js
+const { data } = await coinGeckoApi.coinOHLC('bitcoin', {
+  vs_currency: 'usd',
+  days: 7
+})
+```
+
+​
+
+### `/coins​/{id}​/contract​/{contract_address}`
+
+```js
+const { data } = await coinGeckoApi.contractInformation(
+  'binance-smart-chain',
+  '0x00'
+)
+```
+
+### `/coins​/{id}​/contract​/{contract_address}​/market_chart​/`
+
+```js
+const { data } = await coinGeckoApi.contractMarketChart(
+  'binance-smart-chain',
+  '0x00',
+  {
+    vs_currency: 'usd',
+    days: '1'
+  }
+)
+```
+
+### `/coins​/{id}​/contract​/{contract_address}​/market_chart​/range`
+
+```js
+const { data } = await coinGeckoApi.contractMarketChartRange(
+  'binance-smart-chain',
+  '0x00',
+  {
+    vs_currency: 'usd',
+    from: '1619881896',
+    to: '1619968296'
+  }
+)
+```
+
+### `/asset_platforms`
+
+```js
+const { data } = await coinGeckoApi.assetPlatforms()
+```
+
+### `/coins​/categories​/list`
+
+```js
+const { data } = await coinGeckoApi.categoriesList()
+```
+
+### `/coins​/categories`
+
+```js
+const { data } = await coinGeckoApi.categoriesListMarketData()
+```
+
+### `/exchanges`
+
+```js
+const { data } = await coinGeckoApi.exchangesList()
+```
+
+### `/exchanges​/list`
+
+```js
+const { data } = await coinGeckoApi.exchangesList()
+```
+
+### `/exchanges​/{id}`
+
+```js
+const { data } = await coinGeckoApi.exchangesById('binance')
+```
+
+### `/exchanges​/{id}​/tickers`
+
+```js
+const { data } = await coinGeckoApi.exchangeTickers('binance')
+```
+
+### `/exchanges​/{id}​/status_updates`
+
+```js
+const { data } = await coinGeckoApi.exchangesStatusUpdates('binance')
+```
+
+### `/exchanges​/{id}​/volume_chart`
+
+```js
+const { data } = await coinGeckoApi.exchangesVolumeChart('binance', 1)
+```
