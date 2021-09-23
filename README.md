@@ -240,3 +240,9 @@ const { data } = await coinGeckoApi.exchangesStatusUpdates('binance')
 ```js
 const { data } = await coinGeckoApi.exchangesVolumeChart('binance', 1)
 ```
+
+### Contributions
+
+This package is maintained by [Zidious](https://github.com/Zidious) and [Michael](https://github.com/michael-siek). If any of the endpoints that CoinGecko supply that are not listed please open an issue and we will get it added as soon as possible.
+
+:coffee: :coffee: 
