@@ -1,17 +1,19 @@
 # CoinGecko API TypeScript Wrapper
 
-A open-source TypeScript wrapper for the the CoinGecko API
+An open-source TypeScript wrapper for the the CoinGecko API
 
 [Coingecko API Documentation](https://www.coingecko.com/en/api/documentation)
 
 ## Installation
 
-`npm install @crypto-coffee/coingecko-api`
+```console
+npm install @crypto-coffee/coingecko-api
+```
 
 ## Usage Example
 
-```javascript
-import CoinGeckoAPI from '@crypto-coffee/coingecko-api'
+```js
+const CoinGeckoAPI = require('@crypto-coffee/coingecko-api').default
 
 try {
   const coinGeckoApi = new CoinGeckoApi()
@@ -28,15 +30,15 @@ try {
 
 We have supplied the majority of CoinGecko's API. The available endpoints are supplied below:
 
-### Ping
+### `Ping`
 
-```javascript
+```js
 const result = await coinGeckoApi.ping()
 ```
 
-### /simple/price
+### `/simple/price`
 
-```javascript
+```js
 // Single id
 const { data } = await coinGeckoApi.simple({
     vs_currencies: 'usd'
@@ -49,9 +51,9 @@ const { data } = await coinGeckoApi.simple({
 })
 ```
 
-### /simple/token_price/{id}
+### `/simple/token_price/{id}`
 
-```javascript
+```js
 // single contract_address
 const { data } = await coinGeckoApi.simpleTokenPrice({
     'binance-smart-chain', {
@@ -68,8 +70,8 @@ const { data } = await coinGeckoApi.simpleTokenPrice({
 })
 ```
 
-### /simple/supported_vs_currencies
+### `/simple/supported_vs_currencies`
 
-```javascript
+```js
 const { data } = await coinGeckoApi.supportedCurrencies()
 ```
