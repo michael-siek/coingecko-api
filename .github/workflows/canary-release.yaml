@@ -13,7 +13,7 @@ jobs:
           node-version: 14
       - run: yarn
       - run: yarn test
-      - run: yarn version --prerelease --preid=canary
+      - run: yarn version --no-git-tag-version --prerelease --preid=canary
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
