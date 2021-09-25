@@ -3,7 +3,6 @@
 ![GitHub contributors](https://img.shields.io/github/contributors/michael-siek/coingecko-api)
 ![npm](https://img.shields.io/npm/dt/@crypto-coffee/coingecko-api)
 
-An open-source TypeScript wrapper for the the CoinGecko API
 > An open-source TypeScript wrapper for the the CoinGecko API
 
 [Coingecko API Documentation](https://www.coingecko.com/en/api/documentation)
