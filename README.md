@@ -1,7 +1,7 @@
 # CoinGecko API TypeScript Wrapper
 
-![GitHub contributors](https://img.shields.io/github/contributors/michael-siek/coingecko-api)
-![npm](https://img.shields.io/npm/dt/@crypto-coffee/coingecko-api)
+[![GitHub contributors](https://img.shields.io/github/contributors/michael-siek/coingecko-api)](https://github.com/michael-siek/coingecko-api/graphs/contributors)
+[![npm](https://img.shields.io/npm/dt/@crypto-coffee/coingecko-api)](https://www.npmjs.com/package/@crypto-coffee/coingecko-api)
 
 > An open-source TypeScript wrapper for the the CoinGecko API
 
