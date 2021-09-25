@@ -1,6 +1,6 @@
 # CoinGecko API TypeScript Wrapper
 
-An open-source TypeScript wrapper for the the CoinGecko API
+> An open-source TypeScript wrapper for the the CoinGecko API
 
 [Coingecko API Documentation](https://www.coingecko.com/en/api/documentation)
 
@@ -13,17 +13,20 @@ npm install @crypto-coffee/coingecko-api
 ## Usage Example
 
 ```js
-const CoinGeckoAPI = require('@crypto-coffee/coingecko-api').default
+const CoinGeckoApi = require('@crypto-coffee/coingecko-api').default
 
+;(async () => {
 try {
   const coinGeckoApi = new CoinGeckoApi()
   const results = await coinGeckoApi.simple({
     ids: 'Bitcoin',
     vs_currencies: 'usd'
   })
+  console.log(results)
 } catch (err) {
   // do something with the error
 }
+})()
 ```
 
 ## Endpoints
