@@ -6,20 +6,21 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "fmt": "prettier --write '**/*.{json,ts, md}' '*.md'",
+    "build": "tsc",
     "test": "mocha src/tests/**.ts -r ts-node/register --timeout 10000"
   },
   "devDependencies": {
+    "@types/chai": "^4.2.22",
+    "@types/mocha": "^9.0.0",
     "@types/node": "^16.3.3",
+    "chai": "^4.3.4",
+    "mocha": "^9.1.2",
     "rimraf": "^3.0.2",
     "ts-node": "^10.1.0",
     "typescript": "^4.3.5"
   },
   "dependencies": {
-    "@types/chai": "^4.2.21",
-    "@types/mocha": "^8.2.3",
     "axios": "^0.21.1",
-    "chai": "^4.3.4",
-    "mocha": "^9.0.2",
     "query-string": "^7.0.1"
   }
 }
