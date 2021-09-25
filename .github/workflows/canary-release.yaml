@@ -17,4 +17,5 @@ jobs:
       - run: yarn version --no-git-tag-version --prerelease --preid=canary --access=public
       - uses: JS-DevTools/npm-publish@v1
         with:
+          access: public
           token: ${{ secrets.NPM_TOKEN }}
