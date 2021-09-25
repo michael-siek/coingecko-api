@@ -20,7 +20,7 @@ import type {
   FinanceProductParams
 } from './types'
 
-export class CoinGeckoAPI {
+export default class CoinGeckoAPI {
   private axios: AxiosInstance
 
   constructor() {
@@ -379,7 +379,7 @@ export class CoinGeckoAPI {
 
   private async get(method: string, params?: any) {
     const endpoint = this.build_request_path(method, params)
-    const data = await this.axios.get(endpoint)
+    const { data } = await this.axios.get(endpoint)
     return data
   }
 
