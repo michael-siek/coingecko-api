@@ -4,6 +4,18 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "license": "MPL-2.0",
+  "contributors": [
+    {
+      "name": "Gabe Olesen (https://github.com/Zidious)"
+    },
+    {
+      "name": "Michael Siek (https://github.com/michael-siek)"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/michael-siek/coingecko-api.git"
+  },
   "scripts": {
     "prebuild": "rimraf dist",
     "fmt": "prettier --write '**/*.{json,ts, md}' '*.md'",
