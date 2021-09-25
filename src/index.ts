@@ -121,7 +121,6 @@ export class CoinGeckoAPI {
     date: string,
     params?: CoinsHistoryParams
   ) {
-    // TODO: Some validation on date format if not conformed to '-'
     assert(
       date,
       'Date must conform to this standard: dd-mm-yyyy e.g. 30-12-2017'

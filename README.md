@@ -243,6 +243,6 @@ const { data } = await coinGeckoApi.exchangesVolumeChart('binance', 1)
 
 ### Contributions
 
-This package is maintained by [Zidious](https://github.com/Zidious) and [Michael](https://github.com/michael-siek). If any of the endpoints that are supplied by CoinGecko and are not in this package please request them and we will get them added as soon as possible.
+This package is maintained by [Zidious](https://github.com/Zidious)(Gabe) and [Michael](https://github.com/michael-siek). If any of the endpoints that are supplied by CoinGecko and are not in this package please request them and we will get them added as soon as possible.
 
 :coffee: :coffee:
