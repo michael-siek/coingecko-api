@@ -1,8 +1,8 @@
-name: canary-release
+name: stable-release
 on:
   push:
     branches:
-      - develop
+      - main
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -14,7 +14,6 @@ jobs:
       - run: yarn
       - run: yarn test
       - run: yarn build
-      - run: yarn version --no-git-tag-version --prerelease --preid=canary --access=public
       - uses: JS-DevTools/npm-publish@v1
         with:
           access: public
