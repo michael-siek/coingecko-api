@@ -1,4 +1,4 @@
-import * as assert from 'assert'
+import assert from 'assert'
 import type { AxiosInstance } from 'axios'
 import * as querystring from 'query-string'
 import { API_CONNECTOR } from './utils'
