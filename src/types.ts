@@ -1,5 +1,5 @@
 // Simple Price Base Interface
-interface SimplePriceBaseParams {
+export interface SimplePriceBaseParams {
   vs_currencies: 'usd'
   include_market_cap?: boolean
   include_24hr_vol?: boolean
@@ -7,14 +7,14 @@ interface SimplePriceBaseParams {
   include_last_updated_at?: boolean
 }
 
-interface MarketChartBaseParams {
+export interface MarketChartBaseParams {
   // (required) The target currency of market data (usd, eur, jpy, etc.)
   vs_currency: 'usd'
   // (required) Data up to number of days ago (eg. 1,14,30,max)
   days: string
 }
 
-interface PageBaseParams {
+export interface PageBaseParams {
   per_page?: string | number
   page?: string | number
 }
