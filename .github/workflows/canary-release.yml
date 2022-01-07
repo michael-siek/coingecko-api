@@ -19,4 +19,4 @@ jobs:
         with:
           access: public
           token: ${{ secrets.NPM_TOKEN }}
-          tag: canary
+          tag: next
