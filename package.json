@@ -13,6 +13,9 @@
     "coingecko",
     "crypto api"
   ],
+  "files": [
+    "dist/*"
+  ],
   "contributors": [
     {
       "name": "Gabe Olesen (https://github.com/Zidious)"
