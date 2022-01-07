@@ -16,7 +16,7 @@ npm install @crypto-coffee/coingecko-api
 ## Usage Example
 
 ```js
-const CoinGeckoApi = require('@crypto-coffee/coingecko-api').default
+import CoinGeckoApi from '@crypto-coffee/coingecko-api'
 
 ;(async () => {
   try {
