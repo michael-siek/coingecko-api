@@ -178,17 +178,6 @@ describe('CoinGeckoAPI', () => {
     })
   })
 
-  describe('.coins/{id}/status_updates', () => {
-    it('Return status updates for a given coin', async () => {
-      const data = await coinGeckoApi.coinStatusUpdates('bitcoin')
-
-      assert.isObject(data)
-      assert.isNotNull(data.id)
-      assert.isNotNull(data.symbol)
-      assert.isNotNull(data.name)
-    })
-  })
-
   describe('.coins/{id}/ohlc', () => {
     it('Return candles body: 1-2 days: 30mins // 3-30 days: 4hours // 31 and before: 4 days', async () => {
       const data = await coinGeckoApi.coinOHLC('bitcoin', {
@@ -374,37 +363,12 @@ describe('CoinGeckoAPI', () => {
     })
   })
 
-  describe('./exchanges/{id}/status_updates', () => {
-    it('Return status updates for given exchange', async () => {
-      const data = await coinGeckoApi.exchangesStatusUpdates('binance')
-
-      assert.isObject(data)
-      assert.isNotNull(data.status_updates)
-      assert.isNotNull(data.status_updates.description)
-      assert.isNotNull(data.status_updates.category)
-      assert.isNotNull(data.status_updates.created_at)
-    })
-  })
-
   describe('./exchanges/{id}/volume_chart', () => {
     it('Return volume chart data for a given exchange', async () => {
       const data = await coinGeckoApi.exchangesVolumeChart('binance', 1)
 
       assert.isArray(data)
       assert.isNotNull(data)
-    })
-  })
-
-  describe('./finance_platforms', () => {
-    it('Return list of all finance platforms', async () => {
-      const data = await coinGeckoApi.financePlatforms()
-
-      assert.isArray(data)
-      assert.isNotNull(data.name)
-      assert.isNotNull(data.facts)
-      assert.isNotNull(data.category)
-      assert.isNotNull(data.centralized)
-      assert.isNotNull(data.website_url)
     })
   })
 
