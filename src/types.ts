@@ -105,3 +105,5 @@ export interface FinanceProductParams extends PageBaseParams {
   start_at?: string
   end_at?: string
 }
+
+export type CompaniesHoldings = 'bitcoin' | 'ethereum'

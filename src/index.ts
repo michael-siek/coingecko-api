@@ -17,7 +17,8 @@ import type {
   MarketChartBaseParams,
   CategoriesOrderParams,
   ExchangesTickersParams,
-  FinanceProductParams
+  FinanceProductParams,
+  CompaniesHoldings
 } from './types'
 
 export default class CoinGeckoAPI {
@@ -372,6 +373,15 @@ export default class CoinGeckoAPI {
 
   public async indexesList() {
     const method = 'indexes/list'
+    return await this.get(method)
+  }
+
+  /**
+   *
+   * @param {CompaniesHoldings} coin_id - bitcoin or ethereum
+   */
+  public async companies(coin_id: CompaniesHoldings) {
+    const method = 'companies/public_treasury/' + coin_id
     return await this.get(method)
   }
 

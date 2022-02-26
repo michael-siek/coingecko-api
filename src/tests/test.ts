@@ -428,4 +428,16 @@ describe('CoinGeckoAPI', () => {
       assert.isNotNull(data.name)
     })
   })
+
+  describe('./companies/public_treasury/{coin_id}', () => {
+    it('Return list of companies holding bitcoin or ethereum', async () => {
+      const data = await coinGeckoApi.companies('ethereum')
+
+      assert.isObject(data)
+      assert.isNotNull(data.name)
+      assert.isNotNull(data.symbol)
+      assert.isArray(data.companies)
+      assert.isNotNull(data.companies[0].total_holdings)
+    })
+  })
 })
