@@ -140,12 +140,6 @@ const results = await coinGeckoApi.coinMarketChartRange('bitcoin', {
 })
 ```
 
-### `​/coins​/{id}​/status_updates`
-
-```js
-const results = await coinGeckoApi.coinStatusUpdates('bitcoin')
-```
-
 ### `​/coins​/{id}​/ohlc`
 
 ```js
@@ -233,12 +227,6 @@ const results = await coinGeckoApi.exchangesById('binance')
 
 ```js
 const results = await coinGeckoApi.exchangeTickers('binance')
-```
-
-### `/exchanges​/{id}​/status_updates`
-
-```js
-const results = await coinGeckoApi.exchangesStatusUpdates('binance')
 ```
 
 ### `/exchanges​/{id}​/volume_chart`
