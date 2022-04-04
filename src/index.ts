@@ -1,4 +1,4 @@
-import * as assert from 'assert'
+import assert from 'assert'
 import type { AxiosInstance } from 'axios'
 import * as querystring from 'query-string'
 import { API_CONNECTOR } from './utils'
@@ -17,7 +17,8 @@ import type {
   MarketChartBaseParams,
   CategoriesOrderParams,
   ExchangesTickersParams,
-  FinanceProductParams
+  FinanceProductParams,
+  CompaniesHoldings
 } from './types'
 
 export default class CoinGeckoAPI {
@@ -161,18 +162,6 @@ export default class CoinGeckoAPI {
 
   /**
    * @param id (required) Pass the coin id e.g. bitcoin.
-   * @param {PageBaseParams} params - Object to pass through
-   */
-
-  public async coinStatusUpdates(id: string, params?: PageBaseParams) {
-    assert(id, 'The ID of the coin is required e.g. Bitcoin.')
-
-    const method = 'coins/' + id + '/status_updates'
-    return await this.get(method, params)
-  }
-
-  /**
-   * @param id (required) Pass the coin id e.g. bitcoin.
    * @param {CoinOhlcParams} params - Object to pass through
    */
 
@@ -301,18 +290,6 @@ export default class CoinGeckoAPI {
 
   /**
    * @param id (required) ID of the exchange e.g. binance
-   * @param {PageBaseParams} - Object to pass through
-   */
-
-  public async exchangesStatusUpdates(id: string, params?: PageBaseParams) {
-    assert(id, 'Pass the exchange ID e.g. binance')
-
-    const method = 'exchanges/' + id + '/status_updates'
-    return await this.get(method, params)
-  }
-
-  /**
-   * @param id (required) ID of the exchange e.g. binance
    * @param days (required) Data up to number of days ago (eg. 1,14,30)
    */
 
@@ -324,15 +301,6 @@ export default class CoinGeckoAPI {
   }
 
   // Finance Endpoints
-
-  /**
-   * @param {PageBaseParams} params - Object to pass in
-   */
-
-  public async financePlatforms(params?: PageBaseParams) {
-    const method = 'finance_platforms'
-    return await this.get(method, params)
-  }
 
   /**
    * @param {FinanceProductParams} params - Object to pass in
@@ -372,6 +340,15 @@ export default class CoinGeckoAPI {
 
   public async indexesList() {
     const method = 'indexes/list'
+    return await this.get(method)
+  }
+
+  /**
+   *
+   * @param {CompaniesHoldings} coin_id - bitcoin or ethereum
+   */
+  public async companies(coin_id: CompaniesHoldings) {
+    const method = 'companies/public_treasury/' + coin_id
     return await this.get(method)
   }
 

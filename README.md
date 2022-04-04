@@ -16,7 +16,7 @@ npm install @crypto-coffee/coingecko-api
 ## Usage Example
 
 ```js
-const CoinGeckoApi = require('@crypto-coffee/coingecko-api').default
+import CoinGeckoApi from '@crypto-coffee/coingecko-api'
 
 ;(async () => {
   try {
@@ -140,12 +140,6 @@ const results = await coinGeckoApi.coinMarketChartRange('bitcoin', {
 })
 ```
 
-### `​/coins​/{id}​/status_updates`
-
-```js
-const results = await coinGeckoApi.coinStatusUpdates('bitcoin')
-```
-
 ### `​/coins​/{id}​/ohlc`
 
 ```js
@@ -233,12 +227,6 @@ const results = await coinGeckoApi.exchangesById('binance')
 
 ```js
 const results = await coinGeckoApi.exchangeTickers('binance')
-```
-
-### `/exchanges​/{id}​/status_updates`
-
-```js
-const results = await coinGeckoApi.exchangesStatusUpdates('binance')
 ```
 
 ### `/exchanges​/{id}​/volume_chart`
