@@ -18,7 +18,10 @@ import type {
   CategoriesOrderParams,
   ExchangesTickersParams,
   FinanceProductParams,
-  CompaniesHoldings
+  CompaniesHoldings,
+  Ping,
+  Simple,
+  SimpleTokenPrice
 } from './types'
 
 export default class CoinGeckoAPI {
@@ -28,7 +31,7 @@ export default class CoinGeckoAPI {
     this.axios = API_CONNECTOR
   }
 
-  public async ping() {
+  public async ping(): Promise<Ping> {
     const method = 'ping'
     return await this.get(method)
   }
@@ -40,7 +43,7 @@ export default class CoinGeckoAPI {
    * @param {SimplePriceParams} params - Object to pass through
    */
 
-  public async simple(params: SimplePriceParams) {
+  public async simple(params: SimplePriceParams): Promise<Simple> {
     const method = 'simple/price'
     return await this.get(method, params)
   }
@@ -50,17 +53,15 @@ export default class CoinGeckoAPI {
    * @param {SimpleTokenPriceParams} params - Object to pass through
    */
 
-  public async simpleTokenPrice(id: string, params: SimpleTokenPriceParams) {
-    assert(
-      id,
-      'The id of the platform issuing tokens is required example: "binance-smart-chain"'
-    )
-
+  public async simpleTokenPrice(
+    id: string,
+    params: SimpleTokenPriceParams
+  ): Promise<SimpleTokenPrice> {
     const method = 'simple/token_price/' + id
     return await this.get(method, params)
   }
 
-  public async supportedCurrencies() {
+  public async supportedCurrencies(): Promise<string[]> {
     const method = 'simple/supported_vs_currencies'
     return await this.get(method)
   }
@@ -82,7 +83,9 @@ export default class CoinGeckoAPI {
    * @param {CoinMarketParams} params - Object to pass through
    */
 
-  public async coinMarkets(params?: CoinMarketParams) {
+  public async coinMarkets(
+    params?: CoinMarketParams
+  ): Promise<Record<string, string>[]> {
     const method = 'coins/markets'
     return await this.get(method, params)
   }

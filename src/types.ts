@@ -107,3 +107,60 @@ export interface FinanceProductParams extends PageBaseParams {
 }
 
 export type CompaniesHoldings = 'bitcoin' | 'ethereum'
+
+/* coingecko responses */
+
+export interface Ping {
+  gecko_says: string
+}
+
+export interface Simple {
+  [key: string]: Record<string, number>
+}
+
+export interface SimpleTokenPrice {
+  [key: string]: Record<string, number>
+}
+
+interface CoinLinks {
+  homepage: string[]
+  blockchain_site: string[]
+  official_forum_url: string[]
+  chat_url: string[]
+  announcement_url: string[]
+  twitter_screen_name: string
+  facebook_username: string
+  bitcointalk_thread_identifier: unknown
+  telegram_channel_identifier: string
+  subreddit_url: string
+  repos_url: Record<string, unknown>
+}
+
+export interface Coins {
+  id: string
+  symbol: string
+  name: string
+  asset_platform_id: unknown
+  platforms: Record<string, string>
+  block_time_in_minutes: number
+  hashing_algorithm: string
+  categories: string[]
+  public_notice: unknown
+  additional_notices: string[]
+  localization: Record<string, string>
+  description: Record<string, string>
+  links: CoinLinks
+  image: Record<string, string>
+  country_origin: string
+  genesis_date: string
+  sentiment_votes_up_percentage: number
+  sentiment_votes_down_percentage: number
+  market_cap_rank: number
+  coingecko_rank: number
+  coingecko_score: number
+  developer_score: number
+  community_score: number
+  liquidity_score: number
+  public_interest_score: number
+  market_data: Record<string, unknown>
+}
