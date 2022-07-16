@@ -21,7 +21,14 @@ import type {
   CompaniesHoldings,
   Ping,
   Simple,
-  SimpleTokenPrice
+  SimpleTokenPrice,
+  CoinList,
+  CoinMarkets,
+  Coins,
+  Tickers,
+  CoinHistory,
+  CoinMarketChart,
+  ContractInformation
 } from './types'
 
 export default class CoinGeckoAPI {
@@ -73,7 +80,7 @@ export default class CoinGeckoAPI {
    * @param {CoinListParams} params - Object to pass through
    */
 
-  public async coinList(params?: CoinListParams) {
+  public async coinList(params?: CoinListParams): Promise<CoinList[]> {
     const method = 'coins/list'
     return await this.get(method, params)
   }
@@ -83,9 +90,7 @@ export default class CoinGeckoAPI {
    * @param {CoinMarketParams} params - Object to pass through
    */
 
-  public async coinMarkets(
-    params?: CoinMarketParams
-  ): Promise<Record<string, string>[]> {
+  public async coinMarkets(params?: CoinMarketParams): Promise<CoinMarkets[]> {
     const method = 'coins/markets'
     return await this.get(method, params)
   }
@@ -95,7 +100,7 @@ export default class CoinGeckoAPI {
    * @param {CoinsParams} params - Object to pass through
    */
 
-  public async coins(id: string, params?: CoinsParams) {
+  public async coins(id: string, params?: CoinsParams): Promise<Coins> {
     assert(id, 'The ID of the coin is required e.g. Bitcoin.')
 
     const method = 'coins/' + id
@@ -107,7 +112,10 @@ export default class CoinGeckoAPI {
    * @param {CoinsTickersParams} params - Object to pass through
    */
 
-  public async coinTickers(id: string, params?: CoinsTickersParams) {
+  public async coinTickers(
+    id: string,
+    params?: CoinsTickersParams
+  ): Promise<Tickers> {
     assert(id, 'The ID of the coin is required e.g. Bitcoin.')
 
     const method = 'coins/' + id + '/tickers'
@@ -124,7 +132,7 @@ export default class CoinGeckoAPI {
     id: string,
     date: string,
     params?: CoinsHistoryParams
-  ) {
+  ): Promise<CoinHistory> {
     assert(
       date,
       'Date must conform to this standard: dd-mm-yyyy e.g. 30-12-2017'
@@ -141,7 +149,10 @@ export default class CoinGeckoAPI {
    * @param {CoinsMarketChartParams} params - Object to pass through
    */
 
-  public async coinMarketChart(id: string, params: CoinsMarketChartParams) {
+  public async coinMarketChart(
+    id: string,
+    params: CoinsMarketChartParams
+  ): Promise<CoinMarketChart> {
     assert(id, 'The ID of the coin is required e.g. Bitcoin.')
 
     const method = 'coins/' + id + '/market_chart'
@@ -156,7 +167,7 @@ export default class CoinGeckoAPI {
   public async coinMarketChartRange(
     id: string,
     params: MarketChartRangeBaseParams
-  ) {
+  ): Promise<CoinMarketChart> {
     assert(id, 'The ID of the coin is required e.g. Bitcoin.')
 
     const method = 'coins/' + id + '/market_chart/range'
@@ -168,7 +179,10 @@ export default class CoinGeckoAPI {
    * @param {CoinOhlcParams} params - Object to pass through
    */
 
-  public async coinOHLC(id: string, params: CoinOhlcParams) {
+  public async coinOHLC(
+    id: string,
+    params: CoinOhlcParams
+  ): Promise<number[][]> {
     assert(id, 'The ID of the coin is required e.g. Bitcoin.')
 
     const method = 'coins/' + id + '/ohlc'
@@ -182,7 +196,10 @@ export default class CoinGeckoAPI {
    * @param contract_address - Token's Contract Address
    */
 
-  public async contractInformation(id: string, contract_address: string) {
+  public async contractInformation(
+    id: string,
+    contract_address: string
+  ): Promise<ContractInformation> {
     assert(id, 'The ID of said asset platform e.g. binance-smart-chain')
 
     const method = 'coins/' + id + '/contract/' + contract_address
@@ -199,7 +216,7 @@ export default class CoinGeckoAPI {
     id: string,
     contract_address: string,
     params: MarketChartBaseParams
-  ) {
+  ): Promise<CoinMarketChart> {
     assert(id, 'The ID of said asset platform e.g. binance-smart-chain.')
     assert(contract_address, 'Token contract address required.')
 
@@ -219,7 +236,7 @@ export default class CoinGeckoAPI {
     id: string,
     contract_address: string,
     params: MarketChartRangeBaseParams
-  ) {
+  ): Promise<CoinMarketChart> {
     assert(id, 'The ID of said asset platform e.g. binance-smart-chain.')
     assert(contract_address, 'Token contract address required.')
 
