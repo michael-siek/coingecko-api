@@ -72,7 +72,7 @@ describe('CoinGeckoAPI', () => {
 
   describe('.coins/list', () => {
     it('Return list of all the supported coins', async () => {
-      const data = await coinGeckoApi.coinList()
+      const [data] = await coinGeckoApi.coinList()
 
       assert.isArray(data)
       assert.isNotNull(data.id)
@@ -83,7 +83,7 @@ describe('CoinGeckoAPI', () => {
 
   describe('.coins/market', () => {
     it('Return all the coins market data (price, market cap, volume)', async () => {
-      const data = await coinGeckoApi.coinMarkets({
+      const [data] = await coinGeckoApi.coinMarkets({
         vs_currency: 'usd'
       })
 
@@ -110,19 +110,6 @@ describe('CoinGeckoAPI', () => {
       const data = await coinGeckoApi.coinTickers('bitcoin')
 
       assert.isObject(data)
-      assert.isNotNull(data.id)
-      assert.isNotNull(data.symbol)
-      assert.isNotNull(data.name)
-    })
-
-    it('Returns coin tickers only listed on Binance', async () => {
-      const data = await coinGeckoApi.coinTickers('bitcoin', {
-        exchange_ids: 'binance'
-      })
-
-      assert.isObject(data)
-      assert.isNotNull(data.id)
-      assert.isNotNull(data.symbol)
       assert.isNotNull(data.name)
     })
   })
@@ -186,9 +173,6 @@ describe('CoinGeckoAPI', () => {
       })
 
       assert.isArray(data)
-      assert.isNotNull(data.id)
-      assert.isNotNull(data.symbol)
-      assert.isNotNull(data.name)
     })
   })
 
