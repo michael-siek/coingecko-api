@@ -1,3 +1,4 @@
+import 'mocha'
 import { assert } from 'chai'
 import CoinGeckoAPI from '..'
 
@@ -72,25 +73,26 @@ describe('CoinGeckoAPI', () => {
 
   describe('.coins/list', () => {
     it('Return list of all the supported coins', async () => {
-      const [data] = await coinGeckoApi.coinList()
-
+      const data = await coinGeckoApi.coinList()
+      const { id, symbol, name } = data[0]
       assert.isArray(data)
-      assert.isNotNull(data.id)
-      assert.isNotNull(data.symbol)
-      assert.isNotNull(data.name)
+      assert.isNotNull(id)
+      assert.isNotNull(symbol)
+      assert.isNotNull(name)
     })
   })
 
   describe('.coins/market', () => {
     it('Return all the coins market data (price, market cap, volume)', async () => {
-      const [data] = await coinGeckoApi.coinMarkets({
+      const data = await coinGeckoApi.coinMarkets({
         vs_currency: 'usd'
       })
+      const { id, symbol, name } = data[0]
 
       assert.isArray(data)
-      assert.isNotNull(data.id)
-      assert.isNotNull(data.symbol)
-      assert.isNotNull(data.name)
+      assert.isNotNull(id)
+      assert.isNotNull(symbol)
+      assert.isNotNull(name)
     })
   })
 
