@@ -1,3 +1,4 @@
+import 'mocha'
 import { assert } from 'chai'
 import CoinGeckoAPI from '..'
 
@@ -73,11 +74,11 @@ describe('CoinGeckoAPI', () => {
   describe('.coins/list', () => {
     it('Return list of all the supported coins', async () => {
       const data = await coinGeckoApi.coinList()
-
+      const { id, symbol, name } = data[0]
       assert.isArray(data)
-      assert.isNotNull(data.id)
-      assert.isNotNull(data.symbol)
-      assert.isNotNull(data.name)
+      assert.isNotNull(id)
+      assert.isNotNull(symbol)
+      assert.isNotNull(name)
     })
   })
 
@@ -86,11 +87,12 @@ describe('CoinGeckoAPI', () => {
       const data = await coinGeckoApi.coinMarkets({
         vs_currency: 'usd'
       })
+      const { id, symbol, name } = data[0]
 
       assert.isArray(data)
-      assert.isNotNull(data.id)
-      assert.isNotNull(data.symbol)
-      assert.isNotNull(data.name)
+      assert.isNotNull(id)
+      assert.isNotNull(symbol)
+      assert.isNotNull(name)
     })
   })
 
@@ -110,19 +112,6 @@ describe('CoinGeckoAPI', () => {
       const data = await coinGeckoApi.coinTickers('bitcoin')
 
       assert.isObject(data)
-      assert.isNotNull(data.id)
-      assert.isNotNull(data.symbol)
-      assert.isNotNull(data.name)
-    })
-
-    it('Returns coin tickers only listed on Binance', async () => {
-      const data = await coinGeckoApi.coinTickers('bitcoin', {
-        exchange_ids: 'binance'
-      })
-
-      assert.isObject(data)
-      assert.isNotNull(data.id)
-      assert.isNotNull(data.symbol)
       assert.isNotNull(data.name)
     })
   })
@@ -186,9 +175,6 @@ describe('CoinGeckoAPI', () => {
       })
 
       assert.isArray(data)
-      assert.isNotNull(data.id)
-      assert.isNotNull(data.symbol)
-      assert.isNotNull(data.name)
     })
   })
 
