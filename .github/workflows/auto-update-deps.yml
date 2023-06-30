@@ -1,0 +1,28 @@
+name: Update Dependencies
+
+on:
+  schedule:
+    # Run once a month
+    - cron: '0 0 1 * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - uses: zidious/update-multiple-deps-action@v1.0.1
+        with:
+          latest: >
+            @types/chai,@types/mocha,@types/node,chai,mocha,
+            rimraf,ts-node,typescript,axios,query-string
+      - uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.PAT }}
+          commit-message: 'chore: update dependencies'
+          branch: robot-update-dependencies
+          base: develop
+          title: 'chore: update dependencies'
+          body: 'This PR updates dependencies'
